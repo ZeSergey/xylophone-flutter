@@ -4,22 +4,39 @@ import 'package:audioplayers/audio_cache.dart';
 void main() => runApp(XylophoneApp());
 
 class XylophoneApp extends StatelessWidget {
+  void playSound(int soundName) {
+    final player = AudioCache();
+    player.play('note$soundName.wav');
+  }
+
+  Expanded buildKey({Color color, int sound}) {
+    return Expanded(
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          playSound(sound);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
-          child: Container(
-            child: Center(
-              child: FlatButton(
-                onPressed: () {
-                  print('click');
-                  final player = AudioCache();
-                  player.play('note1.wav');
-                },
-                child: Text('Click me'),
-              ),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              buildKey(color: Colors.red, sound: 1),
+              buildKey(color: Colors.orange, sound: 2),
+              buildKey(color: Colors.yellow, sound: 3),
+              buildKey(color: Colors.teal, sound: 4),
+              buildKey(color: Colors.green, sound: 5),
+              buildKey(color: Colors.blue, sound: 6),
+              buildKey(color: Colors.purple, sound: 7),
+            ],
           ),
         ),
       ),
